@@ -1,0 +1,820 @@
+// Number of Socks
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the sockMerchant function below.
+    static int sockMerchant(int n, int[] ar) {
+        HashMap<Integer, Integer> sMap = new HashMap<Integer, Integer>();
+        for(int i : ar)
+        {            
+            if (!sMap.containsKey(i)) sMap.put(i, 1);
+            else
+                sMap.put(i, sMap.get(i)+1);
+        }
+        int total = 0;
+        for (Integer i : sMap.values())
+            total += i / 2;
+        return total;
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        int[] ar = new int[n];
+
+        String[] arItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int i = 0; i < n; i++) {
+            int arItem = Integer.parseInt(arItems[i]);
+            ar[i] = arItem;
+        }
+
+        int result = sockMerchant(n, ar);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
+
+// Valley Count
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the countingValleys function below.
+    static int countingValleys(int n, String s) {
+        int level = 0, valleyCount = 0; 
+        boolean startValley = false;
+        for (int i = 0; i < n; ++i)
+        {
+            if (level == 0 && s.charAt(i) == 'D') startValley = true;
+            if (s.charAt(i) == 'D') --level;
+            if (s.charAt(i) == 'U') ++level;
+            if (startValley && s.charAt(i) == 'U' && level == 0)
+            {
+                valleyCount++;
+                startValley = false;
+            }
+
+        }
+        return valleyCount;
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        String s = scanner.nextLine();
+
+        int result = countingValleys(n, s);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
+
+//Clouds
+static int jumpingOnClouds(int[] c) {
+        int n = c.length;
+        int[] arr = c;
+        int count = 0;
+        for(int i=0;i<n;)
+            {
+                if(i+2<n)
+                {
+                    if (arr[i + 1] == 0 && arr[i + 2] == 0)
+                    {
+                        count++;
+                        i += 2;
+                    }
+                    else if(arr[i + 1] == 0 && arr[i + 2] == 1)
+                    {
+                        count++;
+                        i += 1;
+                    }
+                    else if (arr[i + 1] == 1 && arr[i + 2] == 0)
+                    {
+                        count++;
+                        i += 2;
+                    }
+                }
+                else
+                {
+                    if(i<n-1)
+                    count++;
+                    i++;
+                }
+                
+            }
+        return count;
+    }
+
+// Complete the hourglassSum function below.
+    static int hourglassSum(int[][] arr) {
+        int len = arr[0].length - 2;
+        int sum; // = new int[len * len];
+        int maxS = 0;
+        for (int i = 0; i < (len * len); ++i)
+        {
+            int row = i / len;
+            int col = i % len;
+            sum = arr[row][col] + arr[row][col+1] + arr[row][col+2] + arr[row+1][col+1] + arr[row+2][col] + arr[row+2][col+1] + arr[row+2][col+2];
+            if (sum > maxS) maxS = sum;
+            if (i == 0) maxS = sum;
+        }
+        return maxS;
+    }
+
+ // Complete the rotLeft function below.
+    static int[] rotLeft(int[] a, int d) {
+
+        int len = a.length;
+        int[] after = new int[len];
+        for (int i = 0; i < len; ++i)
+            after[i] = a[(i+d)%len];
+
+        return after;    
+    }
+
+   // Complete the minimumBribes function below.
+    static void minimumBribes(int[] q) {
+    int ans = 0;
+    for (int i = q.length - 1; i >= 0; i--) {
+        if (q[i] - (i + 1) > 2) {
+            System.out.println("Too chaotic");
+            return;
+        }
+        for (int j = Math.max(0, q[i] - 2); j < i; j++)
+            if (q[j] > q[i]) ans++;
+    }
+    System.out.println("" + ans);
+    }
+
+// shortest substring containing all distinct chars
+ static String findSubString(String str) 
+    { 
+        int n = str.length(); 
+       
+        // Count all distinct characters. 
+        int dist_count = 0; 
+          
+        boolean[] visited = new boolean[MAX_CHARS]; 
+        Arrays.fill(visited, false); 
+        for (int i=0; i<n; i++) 
+        { 
+            if (visited[str.charAt(i)] == false) 
+            { 
+                visited[str.charAt(i)] = true; 
+                dist_count++; 
+            } 
+        } 
+       
+        // Now follow the algorithm discussed in below 
+        // post. We basically maintain a window of characters 
+        // that contains all characters of given string. 
+        // https://www.geeksforgeeks.org/find-the-smallest-window-in-a-string-containing-all-characters-of-another-string/  
+        int start = 0, start_index = -1; 
+        int min_len = Integer.MAX_VALUE; 
+       
+        int count = 0; 
+        int[] curr_count =  new int[MAX_CHARS]; 
+        for (int j=0; j<n; j++) 
+        { 
+            // Count occurrence of characters of string 
+            curr_count[str.charAt(j)]++; 
+       
+            // If any distinct character matched, 
+            // then increment count 
+            if (curr_count[str.charAt(j)] == 1 ) 
+                count++; 
+       
+            // if all the characters are matched 
+            if (count == dist_count) 
+            { 
+                // Try to minimize the window i.e., check if 
+                // any character is occurring more no. of times 
+                // than its occurrence in pattern, if yes 
+                // then remove it from starting and also remove 
+                // the useless characters. 
+                while (curr_count[str.charAt(start)] > 1) 
+                { 
+                    if (curr_count[str.charAt(start)] > 1) 
+                        curr_count[str.charAt(start)]--; 
+                    start++; 
+                } 
+                  
+                // Update window size 
+                int len_window = j - start + 1; 
+                if (min_len > len_window) 
+                { 
+                    min_len = len_window; 
+                    start_index = start; 
+                } 
+            } 
+}
+// shorttest subarray contains all elements
+static void shortest(String s) 
+{ 
+	int start = 0, end;
+	int n = s.length();
+	
+	List<Character> l1 = s.chars().mapToObj(i -> (char)i).collect(Collectors.toList());
+	Set<Character> setC = new HashSet<>(l1);
+	
+	int sN = setC.size();
+	int minL = n;
+	
+	for (int i = sN; i <= n; i++) 
+	{ 
+		end = i;
+		List<Character> intL = l1.subList(start, end);
+		Set<Character> setI = new HashSet<>(intL);
+		if (setI.size() < sN) 
+		{
+			continue;
+		}
+		else
+		{
+			
+			while(setI.size() >= sN )
+			{
+				if (minL > (end - start)) minL = end - start;
+				start++;
+				intL = l1.subList(start, end);				
+				setI = new HashSet<>(intL);				
+			}
+		}
+		
+	}										
+	System.out.print("MIN " + minL); 
+}
+
+// Longest sub-array of 2 different elements, at least 2 elements
+static void longest2(int a[], int n, int k) 
+{ 
+	int start = 0, end = k; 
+	int maxL = end - start;
+	List<Integer> iL = Arrays.stream(a).boxed().collect(Collectors.toList());
+	// System.out.println("List Comparison " + iL.equals(iL2));
+	for (int i = k; i <= n; i++) 
+	{ 
+		end = i;
+		List<Integer> intL = iL.subList(start, end);
+		Set<Integer> setI = new HashSet<>(intL);
+		if (setI.size() <= k) 
+		{
+			if (maxL < (end - start)) maxL = end - start;
+			continue;
+		}
+		else
+		{
+			while(setI.size() > k)
+			{
+				start++;
+				intL = iL.subList(start, end);
+				setI = new HashSet<>(intL);
+			}
+		}
+		
+	}										
+	System.out.println("MAX " + maxL); 
+}
+
+// C++
+   for (int i = 2; i < n; ++i)
+    {
+        unordered_set<int> iSet2(arr + j, arr + i);
+        if (iSet2.size() <= k) 
+        {
+            if ((i - j) > maxS) maxS = i - j;
+            continue;
+        }
+        else
+        {
+            while (iSet2.size() > k)
+            {
+                ++j;
+                iSet2.clear();
+                for (int l = j; l < i; ++l) iSet2.insert(arr[j]);
+            }
+        }
+    }
+
+
+
+//Method 3 : Using HashSet
+private static void findDuplicatesUsingHashSet(int[] inputArray)
+{
+	HashSet<Integer> set = new HashSet<Integer>();
+	for (int element : inputArray) 
+	{
+		if( ! set.add(element))
+		{
+			System.out.println("Duplicate Element : "+element);
+		}
+	}
+}
+
+//Method 4 : Using HashMap
+private static void findDuplicatesUsingHashMap(int[] inputArray)
+{
+HashMap<Integer, Integer> map = new HashMap<>();
+for (int element : inputArray) 
+{   
+if(map.get(element) == null)
+{
+map.put(element, 1);
+}
+else
+{
+map.put(element, map.get(element)+1);
+}
+}
+Set<Entry<Integer, Integer>> entrySet = map.entrySet();
+for (Entry<Integer, Integer> entry : entrySet) 
+{               
+if(entry.getValue() > 1)
+{
+System.out.println("Duplicate Element : "+entry.getKey()+" - found "+entry.getValue()+" times.");
+}
+}
+}
+
+Using forEach from Java 8
+final long[] i = {0};
+map.forEach((k, v) -> i[0] += k + v);
+Using keySet and foreach
+long i = 0;
+for (Integer key : map.keySet()) {
+    i += key + map.get(key);
+}
+
+
+Given a string, find number of all substrings
+static int substringcalculator()
+	{
+		// your code goes here
+		// your code goes here
+			String s = "kincenvizh";
+			Set<String> setS = new HashSet<String>();
+			
+ 
+			for(int i = 0; i < s.length(); i++)
+			{
+				String sub = s.substring(i);
+				int subLen = sub.length();
+				for(int j = 0; j < subLen; j++)
+				{
+					String subS = sub.substring(0, subLen - j);
+					setS.add(subS);
+				}
+			}
+			System.out.println(setS.size());
+			return setS.size();
+}
+
+//Method 5 : Using Java 8 Streams
+
+private static void findDuplicatesUsingJava8(int[] inputArray) 
+{   
+Set<Integer> uniqueElements = new HashSet<>();
+Set<Integer> duplicateElements =  Arrays.stream(inputArray)
+.filter(i -> !uniqueElements.add(i))
+.boxed()
+.collect(Collectors.toSet());
+System.out.println(duplicateElements);
+}
+
+private static void findDuplicateChars(String s)
+{
+	// char[] cA = s.toCharArray();
+	Set<Character> unique = new HashSet<>();
+	Set<Character> duplicateChars = s.chars().mapToObj(i -> (char)i)
+	.filter(c -> !unique.add(c))
+	.collect(Collectors.toSet());
+	
+	System.out.println("Duplicates " + duplicateChars);
+}
+
+	static boolean isPrime(int n, int i)
+	{
+		if (n > 2)
+		{
+			if (n % i == 0) return false;
+			if ( i * i > n) return true;
+			return isPrime(n, i+1);
+		}
+		else
+		{
+			return (n == 2);
+		}
+	};
+
+    public static void main(String[] args){
+        int i = 010;
+        int j = 07;
+        System.out.println(i);
+        System.out.println(j);
+        
+        String str = "automation 123";
+        StringBuilder strB = new StringBuilder();
+        strB.append(str);
+        strB = strB.reverse();
+        System.out.println(strB);
+        int length = str.length();
+        char cA[] = str.toCharArray();
+        String token[] = str.split("");
+        String words[] = str.split(" ");
+
+        Stream <String> streamOfWords = Arrays.stream(words);
+
+        streamOfWords.forEach(w -> {
+
+            System.out.println("Original word: " + w);
+
+            Function <String,String> reverse = s -> new StringBuilder(s).reverse().toString();
+
+            String reversedWord = reverse.apply(w);
+
+            System.out.println("Reversed word: " + reversedWord + "\n");
+        });
+        
+        String words2[] = str.split(" ");
+        
+        StringBuilder sb2 = new StringBuilder();
+ 
+        Stream <String> stream = Arrays.stream(words2);
+ 
+        stream.forEach(w -> {
+ 
+            Function <String,String> reverse = s -> new StringBuilder(s).reverse().toString();
+ 
+            String reversedWord = reverse.apply(w);
+ 
+            sb2.append(reversedWord + " ");
+        });
+        System.out.println(sb2.toString());
+
+       // for (int k = length -1; k >= 0; --k)
+       // 	System.out.print(token[k]); // str.charAt(k));
+        
+        int x, y, temp;
+       /* System.out.println("Enter x N y");
+        Scanner in = new Scanner(System.in);
+        x = in.nextInt();
+        y = in.nextInt();
+        temp = x;
+        x = y;
+        y = temp;
+        
+        x = x + y;
+        y = x - y;
+        x = x - y;
+        System.out.println("" + x + " " + y); */
+        
+        String str2 = "This this is is done by Saket Saket";
+		String[] split = str2.split(" ");
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		for (int k=0; k<split.length; k++) {
+			if (map.containsKey(split[k])) {
+				int count = map.get(split[k]);
+				map.put(split[k], count+1);
+			}
+			else {
+				map.put(split[k], 1);
+			}
+		}
+		System.out.println(map);
+		
+		Iterator itr = map.entrySet().iterator();
+		while(itr.hasNext()) {
+			Map.Entry me = (Map.Entry) itr.next();
+			System.out.println("Key is " + me.getKey() + " Value is " + me.getValue());
+		}
+		System.out.println("For Loop:");
+		for(Map.Entry me2: map.entrySet()) {
+			System.out.println("Key is: " + me2.getKey() + " Value is: " + me2.getValue());
+		}
+
+		
+		/* boolean isPrime = true; 
+		Scanner in3 = new Scanner(System.in);
+		int num2 = in3.nextInt();
+		in3.close();
+		/* for (int m = 2; m<= num/2; m++) {
+			temp = num%m;
+			if (temp == 0) {
+				isPrime = false;
+				break;
+			}
+		} 
+		if(isPrime(num2, 2)) 
+			System.out.println(num2 + "number is prime");
+			else 
+				System.out.println(num2 + "number is not a prime");
+    	
+    String original, reverse = "";
+    
+    System.out.println("Test pallen ");
+    Scanner in2 = new Scanner(System.in);
+    original = in2.nextLine();
+	length = original.length();
+	in2.close();
+	
+	for (int n =length -1; n>=0; n--) {
+		reverse = reverse + original.charAt(n);
+	} 
+	StringBuffer sb0 = new StringBuffer();
+	sb0.append(original);
+	reverse = sb0.reverse().toString();
+	System.out.println("reverse is:" +reverse);
+	
+	if(original.equals(reverse)) 
+		System.out.println("The number is palindrome");
+	else
+		System.out.println("The number is not a palindrome");
+	*/
+
+	// number of all substrings that are palindrome
+	// Given Array of strings of words and sentence, anargram strings, number of  different sentences form by anagram strings
+	// Given Array of integers, number of possible subsets that satisfy criteria  nCm, m between m, m+1, ...n
+ 
+	int num, a = 0,b=0, c =1;
+	Scanner in = new Scanner(System.in);
+	System.out.println("Enter the number of times");
+	num = in.nextInt();
+	System.out.println("Fibonacci Series of the number is:");
+	for (int p=0; p<=num; p++) {
+		a = b;
+		b = c;
+		c = a+b;
+		System.out.println(a + "");    //if you want to print on the same line, use print()
+	}
+	
+	ArrayList list = new ArrayList();
+	list.add("20");
+	list.add("30");
+	list.add("40");
+	System.out.println("List size " + list.size());
+	System.out.println("While Loop:");
+	Iterator itr2 = list.iterator();
+	while(itr2.hasNext()) {
+		System.out.println(itr2.next());
+	}
+	System.out.println("Advanced For Loop:");
+	for(Object obj : list) {
+		System.out.println(obj);
+}
+	System.out.println("For Loop:");
+	for(int q=0; q<list.size(); q++) {
+		System.out.println(list.get(q));
+	}
+	System.out.println("STREAM printing list");
+	list.stream().forEach(obj->{System.out.println(obj);});
+	
+	String str3 = new String("Sakkett");
+    int count = 0;
+    char[] chars = str3.toCharArray();
+    ArrayList<Character> cList = new ArrayList<Character>();
+    for(char cc : chars) cList.add(cc);
+    Set<Character> cSet = new HashSet<>();
+    Set<Character> dSet = new HashSet<>();
+    dSet = cList.stream().filter(obj->!cSet.add(obj)).collect(Collectors.toSet());
+    System.out.println(dSet);
+    System.out.println("Duplicate characters are:");
+    for (int s=0; s<str3.length();s++) {
+                for(int t=s+1; t<str3.length();t++) {
+                           if (chars[s] == chars[t]) {
+                                      System.out.println(chars[t]);
+                                      count++;
+                                      break;
+                            }
+                 }
+     }
+    
+    
+    
+    int arr[] = { 100,14, 46, 47, 94, 94, 52, 86, 36, 94, 89 };
+    int largest = 0;
+    int secondLargest = 0;
+    System.out.println("The given array is:");
+    for (int u = 0; u < arr.length; u++)
+    {
+        System.out.print(arr[u] + "\t");
+    }
+    for (int v = 0; v < arr.length; v++)
+    {
+        if (arr[v] > largest)
+        {
+            secondLargest = largest;
+            largest = arr[v];
+        }
+        else if (arr[v] > secondLargest)
+        {
+            secondLargest = arr[v];
+        }
+    }
+    System.out.println("\nSecond largest number is:" + secondLargest);
+    System.out.println("Largest Number is: "  +largest);
+    ArrayList<Integer> iList2 = new ArrayList<Integer>();
+    for (int ii : arr) iList2.add(ii);
+    iList2.stream().sorted(Comparator.reverseOrder()).limit(2).forEach(obj->{System.out.println(obj + "");});
+
+  List<Integer> iList3 = 
+    		Arrays.stream(arr).boxed().sorted(Comparator.reverseOrder()).limit(2).collect(Collectors.toList());
+    
+  ArrayList<Integer> aList3 = 
+    		Arrays.stream(arr).boxed().sorted(Comparator.reverseOrder()).limit(2).collect(Collectors.toCollection(ArrayList::new));
+
+    
+    int cc=0,aa,temp2;  
+    int n=153;//It is the number to check Armstrong  
+    temp2=n;  
+    while(n>0)  
+    {  
+    aa=n%10;  
+    n=n/10;  
+     cc=cc+(aa*aa*aa);  
+     }  
+     if(temp2==cc)  
+     System.out.println("armstrong number");   
+     else  
+         System.out.println("Not armstrong number"); 
+     
+     String str1 = "Saket Saurav        is a QualityAna    list";
+     
+     //1. Using replaceAll() Method
+
+     String str4 = str1.replaceAll("\\s", "");
+
+     System.out.println(str4);
+     
+     char[] chars2 = str1.toCharArray();
+     
+     StringBuffer sb = new StringBuffer();
+
+     for (int w = 0; w < chars2.length; w++)
+     {
+         if( (chars2[w] != ' ') && (chars2[w] != '\t') )
+         {
+             sb.append(chars2[w]);
+         }
+     } 
+     System.out.println(sb);           //Output : CoreJavajspservletsjdbcstrutshibernatespring
+     ArrayList<Character> cA2 = new ArrayList<Character>();
+     for (char c3 : chars2) cA2.add(c3);
+     cA2.stream().filter(xx-> xx != ' ').forEach(System.out::print);
+     
+     // # of sockets
+     int socksN = 4;
+     int socksA[] = {1, 2, 3, 4, 1, 2, 3, 4, 1, 1};
+     HashMap<Integer, Integer> sMap = new HashMap<Integer, Integer>();
+     for (int s : socksA)
+     {
+    	 if (sMap.get(s) == null) sMap.put(s ,1);
+    	 else sMap.put(s, sMap.get(s) + 1);
+     }
+     int pairs = 0;
+     for (int ns : sMap.values())
+    	 pairs += ns / 2;
+    
+     System.out.println("Number of pairs " + pairs);
+
+List<Integer> OddNumbers = Arrays.asList(1, 3, 5); 
+     
+     // Creating a list of Even Numbers 
+     List<Integer> EvenNumbers = Arrays.asList(2, 4, 6, 8); 
+
+     List<List<Integer>> listOfListofInts = 
+             Arrays.asList(OddNumbers, EvenNumbers); 
+
+     System.out.println("The Structure before " + listOfListofInts);
+       
+     // Using flatMap for transformating and flattening. 
+     List<Integer> listofInts  = listOfListofInts.stream() 
+                                 .flatMap(alist -> alist.stream()) 
+                                 .collect(Collectors.toList());
+
+     IntStream.range(1, 10).reduce((xx, yy) -> xx + yy).ifPresent(s -> System.out.println(s));
+     IntStream.range(1, 10).reduce(Integer::max).ifPresent(s -> System.out.println(s));
+
+    }
+}
+
+    // number of substrings that are palindrome
+    String s1 = "cababd";
+    int countS = 0;
+    
+  //  Set<String> setS = new HashSet<String>();
+
+    	for(int i1 = 0; i1 < s1.length(); i1++)
+    	{
+    		String sub = s1.substring(i1);
+    		int subLen = sub.length();
+    		for(int j1 = 0; j1 < subLen; j1++)
+    		{
+    		String subS = sub.substring(0, subLen - j1);
+    		if (isPalin(subS))
+    			{
+    			System.out.println("PALIN " + subS);
+    			++countS;
+    			}
+    		}
+    	}
+    	System.out.println("# of palin substrings " + countS);
+    
+    	String sList[] = {"am", "ma", "spy", "pys", "ysp"};
+    	String sentence = "I am a spy";
+    	HashMap<String, Integer> anagramMap = new  HashMap<String, Integer>();
+    	for (String ss : sList)
+    	{
+    		Boolean isnew = true;
+    		for (String mss : anagramMap.keySet())
+    		{
+    			if (isAnagram(ss, mss))
+    			{
+    				anagramMap.put(mss, anagramMap.get(mss) + 1);
+    				isnew = false;
+    				break;
+    			}
+    		}
+    		if (isnew) anagramMap.put(ss, 1);
+    	}
+    	String sList2[] = new String[sList.length];
+    	int ij = 0;
+    	for (String s2 : sList)
+    	{
+    		char cA3[] = s2.toCharArray();
+    		Arrays.sort(cA3);
+    		sList2[ij++] = new String(cA3);
+    	}
+    	ArrayList<String> sList3 = new ArrayList<String>();
+    	
+    	for (String s2 : sList)
+    	{
+    		char cA3[] = s2.toCharArray();
+    		Arrays.sort(cA3);
+    		sList3.add(new String(cA3));
+    	}
+    	Map<String, Long> anagramMap2 =
+    			Stream.of(sList2).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    	Map<String, Long> anagramMap3 =
+    			sList3.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+    	String sentenceA[] = sentence.split(" ");
+    	int totalCounts = 1;
+    	for (String senS : sentenceA)
+    	{
+    		int multiplier = 1;
+    		for (String mss : anagramMap.keySet())
+    		{
+    			if (isAnagram(senS, mss))
+    			{
+    				multiplier = anagramMap.get(mss);
+    				break;
+    			}
+    		}
+    		totalCounts *= multiplier;
+    	}
+    	for (String senS : sentenceA)
+    	{
+    		String senSorted = Arrays.stream(senS.split("")).sorted().collect(Collectors.joining());
+    		Long multiplier = anagramMap4.get(senSorted);
+    		totalCounts *= (multiplier == null) ? 1L : multiplier;
+    	}
+    	System.out.println("Total number of anagram sentences " + totalCounts);
+
+    
+
+

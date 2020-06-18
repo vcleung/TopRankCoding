@@ -1,0 +1,67 @@
+// shorttest subarray contains all elements
+static void shortest(String s) 
+{ 
+	int start = 0, end;
+	int n = s.length();
+	
+	List<Character> l1 = s.chars().mapToObj(i -> (char)i).collect(Collectors.toList());
+	Set<Character> setC = new HashSet<>(l1);
+	
+	int sN = setC.size();
+	int minL = n;
+	
+	for (int i = sN; i <= n; i++) 
+	{ 
+		end = i;
+		List<Character> intL = l1.subList(start, end);
+		Set<Character> setI = new HashSet<>(intL);
+		if (setI.size() < sN) 
+		{
+			continue;
+		}
+		else
+		{
+			
+			while(setI.size() >= sN )
+			{
+				if (minL > (end - start)) minL = end - start;
+				start++;
+				intL = l1.subList(start, end);				
+				setI = new HashSet<>(intL);				
+			}
+		}
+		
+	}										
+	System.out.print("MIN " + minL); 
+}
+
+// Longest sub-array of 2 different elements, at least 2 elements
+static void longest2(int a[], int n, int k) 
+{ 
+	int start = 0, end = k; 
+	int maxL = end - start;
+	List<Integer> iL = Arrays.stream(a).boxed().collect(Collectors.toList());
+	// System.out.println("List Comparison " + iL.equals(iL2));
+	for (int i = k; i <= n; i++) 
+	{ 
+		end = i;
+		List<Integer> intL = iL.subList(start, end);
+		Set<Integer> setI = new HashSet<>(intL);
+		if (setI.size() <= k) 
+		{
+			if (maxL < (end - start)) maxL = end - start;
+			continue;
+		}
+		else
+		{
+			while(setI.size() > k)
+			{
+				start++;
+				intL = iL.subList(start, end);
+				setI = new HashSet<>(intL);
+			}
+		}
+		
+	}										
+	System.out.println("MAX " + maxL); 
+}

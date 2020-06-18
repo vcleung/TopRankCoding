@@ -1,0 +1,68 @@
+public static Boolean isPalin(String original)
+	{
+		String reverse = new StringBuilder(original).reverse().toString();		
+		return original.equals(reverse);
+	}
+public static Boolean isAnagram2(String ss, String mss)
+	{
+		String ssSorted = Stream.of(ss.split("")).sorted().collect(Collectors.joining());
+		String mssSorted = Stream.of(mss.split("")).sorted().collect(Collectors.joining());
+		return ssSorted.equals(mssSorted);		
+	}
+for(Map.Entry me2: map.entrySet()) {
+System.out.println("Key is: " + me2.getKey() + " Value is: " + me2.getValue());}
+Scanner in3 = new Scanner(System.in);
+		int num2 = in3.nextInt();
+		in3.close();
+String  original = in2.nextLine();
+	length = original.length();
+System.out.println("STREAM printing list");
+	list.stream().forEach(obj->{System.out.println(obj);});
+String str3 = new String("Sakkett");
+    int count = 0;
+    char[] chars = str3.toCharArray();
+    ArrayList<Character> cList = new ArrayList<Character>();
+    for(char cc : chars) cList.add(cc);
+List<Character> cA2 = str1.chars().mapToObj(ii -> (char)(ii)).collect(Collectors.toList());
+    Set<Character> cSet = new HashSet<>();
+    Set<Character> dSet = new HashSet<>();
+    dSet = cList.stream().filter(obj->!cSet.add(obj)).collect(Collectors.toSet());
+    System.out.println(dSet);
+    System.out.println("Duplicate characters are:");
+// checking size using lambda
+    List<Integer> listWithDuplicates = Arrays.asList(1, 2, 3);
+    int siz1 = listWithDuplicates.size();
+    int siz2 =  listWithDuplicates.stream().distinct().collect(Collectors.toList()).size();
+    System.out.println("Arrays with no duplicates: " + (siz1 == siz2));
+ArrayList<String> sList4 = new ArrayList<String>();
+for (String s2 : sList)
+{
+ String s2sorted = Stream.of(s2.split("")).sorted().collect(Collectors.joining());
+ sList4.add(s2sorted);
+}
+Map<String, Long> anagramMap4 =
+    sList4.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+String sentenceA[] = sentence.split(" ");
+int totalCounts = 1;
+for (String senS : sentenceA)
+{
+	int multiplier = 1;
+    	for (String mss : anagramMap4.keySet())
+    	{
+    		if (isAnagram2(senS, mss))
+    		{
+    			multiplier = (anagramMap4.get(mss)).intValue();
+    			break;
+    		}
+    	}
+    	totalCounts *= multiplier;
+}
+    	System.out.println("Total number of anagram sentences " + totalCounts);
+ArrayList<Integer> iList2 = new ArrayList<Integer>();    
+for (int ii : arr) iList2.add(ii);
+iList2.stream().sorted(Comparator.reverseOrder()).limit(2).forEach(obj->{System.out.println(obj + "");});
+List<Character> cA2 = str1.chars().mapToObj(ii -> (char)(ii)).collect(Collectors.toList());
+cA2.stream().filter(xx-> xx != ' ').forEach(System.out::print);
+
+
+    	
