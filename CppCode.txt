@@ -1,0 +1,1161 @@
+#include <list>
+#include <algorithm>
+using namespace std;
+
+//*
+int max_of_four(int a, int b, int c, int d)
+{
+// Array
+    int iL[] = {a, b, c, d};
+    return *(std::max_element(iL, iL + 4));
+// Vector
+  vector<int> iL = {a, b, c, d};
+    return *(std::max_element(iL.begin(), iL.end()));
+// List and Lambda
+  list<int> iL{a, b, c, d};
+    iL.sort();
+    int maxE = 0;
+    std::for_each(iL.begin(),
+                iL.end() ,
+                [ &maxE ](const int &e) {
+                    maxE = e;
+                 });
+    return maxE;
+// List sort desc
+   iL.sort(greater<int>());
+    return iL.front();
+// return 2nd element
+   iL.sort(greater<int>());
+    auto l_front = iL.begin();
+    std::advance(l_front, 1);
+    return *l_front;
+
+}
+
+#include <stdlib.h>
+void update(int *a,int *b) {
+    // Complete this function    
+    int c = *a;
+    *a = *a + *b;
+    *b = abs(*b - c);
+}
+
+// reverse array of ints
+    cin >> N;
+    int iA[N];
+    for (int i = 0; i < N; ++i) cin >> iA[i];
+    for (int i = N - 1; i >= 0; --i) cout << iA[i] << " ";
+// reverse a string
+   getline(cin, s);
+    reverse(s.begin(), s.end());
+
+// Variable array size
+int N, q;  
+    cin >> N >> q;
+    vector<int*> nV;
+    vector<int*> qV;
+        
+    for(int i = 0; i < N; ++i)
+    {
+        int n;
+        cin >> n;  
+        int *iA = new int[n];
+        for (int j = 0; j < n; ++j) cin >> iA[j];
+        nV.push_back(iA);
+    }
+        
+    for(int i = 0; i < q; ++i)
+    {
+        int *iA = new int[2];
+        for (int j = 0; j < 2; ++j) cin >> iA[j];
+        qV.push_back(iA);
+    }
+    
+    for(int i = 0; i < q; ++i)
+            cout << nV[qV[i][0]][qV[i][1]] << endl;
+    
+    return 0;
+
+// Set
+int q;  
+    cin >> q;
+    vector<int*> qV;
+    set<int> s;    
+    for(int i = 0; i < q; ++i)
+    {
+        int *iA = new int[2];
+        for (int j = 0; j < 2; ++j) cin >> iA[j];
+        if ( iA[0] == 1) s.insert(iA[1]);
+        if (iA[0] == 2) s.erase(iA[1]);
+        if (iA[0] == 3) cout << (s.count(iA[1]) ? "Yes" : "No") << endl;
+    }
+    return 0;
+
+// Map
+   int q;  
+    cin >> q;
+    map<string, int> m;    
+    for(int i = 0; i < q; ++i)
+    {
+        int t;
+        cin >> t;
+        string name;
+        int score;
+        if ( t == 1 )
+        {
+            cin >> name >> score;
+            m[name] = m[name] + score;
+        }
+        if (t == 2) 
+        {
+            cin >> name;
+            m.erase(name);
+        }
+        if (t == 3)
+        {
+            cin >> name;
+            cout << m[name] << endl;
+        }
+    }
+    return 0;
+
+//qeque
+int maxE = *(std::max_element(arr, arr + k));
+    printf("%d ", maxE);
+    for (int i = 1; i < (n - k + 1); ++i)
+    {
+        if (arr[i-1] == maxE) 
+            maxE = *(std::max_element(arr+i, arr + i + k));
+        else if (arr[i+k-1] > maxE) 
+            maxE = arr[i+k-1];
+        else;
+        printf("%d ", maxE);
+    }
+    printf("\n");  
+
+// using deque
+
+    deque<int> dq;    
+    for (int i=0; i<n; i++){        
+        // base case for first element
+        if (dq.empty()){
+            dq.push_back(i);
+        }        
+        // remove elements outside the current window
+        if (dq.front() <= (i - k)){
+            dq.po
+p_front();
+        }        
+        // move max element to the front
+        while (!dq.empty() && arr[i] >= arr[dq.back()]){
+            dq.pop_back();
+        }        
+        dq.push_back(i);        
+        // print out only when the first window is completed
+
+        if (i >= (k - 1)){
+            cout << arr[dq.front()] << " ";
+        }    
+    }
+    cout << endl; 
+}
+
+// String stream
+vector<int> parseInts(string str) {
+	// Complete this function
+    stringstream ss(str);
+    vector<int> iV;
+    char ch;
+    int a, b, c;
+     while (!ss.eof())
+    {
+        ss >> a >> ch;
+        iV.push_back(a);
+    }
+    return iV;
+}
+
+// String 
+   string s1, s2;
+    cin >> s1;
+    cin >> s2;
+    cout << s1.size() << " " << s2.size() << endl;
+    cout << s1 + s2 << endl;
+    char c = s1[0];
+    s1[0] = s2[0];
+    s2[0] = c;
+    cout << s1 << " " << s2 << endl;
+
+// to c str
+   string to_string() 
+    { 
+        char buf[1000];
+        sprintf(buf,"%d,%s,%s,%d",age,first_name.c_str(),last_name.c_str(),standard);
+        return string(buf);
+    }
+
+// Lambda sum
+int calculateTotalScore() { 
+        int sum = 0;
+        std::for_each(std::begin(score), std::end(score),
+                [&] (int &i) {
+                    sum += i;
+                });
+        return sum;
+    }        
+
+// stream << overload, friend function
+class Date
+{
+    int mo, da, yr;
+public:
+    Date(int m, int d, int y)
+    {
+        mo = m; da = d; yr = y;
+    }
+    friend ostream& operator<<(ostream& os, const Date& dt);
+};
+
+ostream& operator<<(ostream& os, const Date& dt)
+{
+    os << dt.mo << '/' << dt.da << '/' << dt.yr;
+    return os;
+}
+
+// try - multiple catch
+try {
+  // code here
+}
+catch (int param) { cout << "int exception"; }
+catch (char param) { cout << "char exception"; }
+catch (...) { cout << "default exception"; }
+// nested try-catch
+try{
+        try {
+            Server::compute(A, B);
+        } catch (invalid_argument e) { cout << "Exception: " << e.what() << endl;}
+    }catch(...) {cout << "Not enough memory " << endl;}  
+
+// Exception server
+try{
+          answer = Server::compute(A, B);
+        } catch (invalid_argument e) { cout << "Exception: " << e.what() << endl;}
+          catch (std::bad_alloc&) { std::cout << "Not enough memory\n";} 
+          catch (const std::out_of_range& e) { cout << "Exception: " << e.what() << endl;}
+          catch(...) {cout << "Other Exception " << endl;}  
+        if (answer != 0) cout << to_string(answer) << endl;
+
+// static variable
+class Data
+{
+private:
+   static int ID;
+   int thisId;
+public:
+   Data(){
+   thisId = ++ID;
+   }
+};
+int Data::ID = 0;
+
+// virtual function
+   virtual void getdata() = 0; // pure virtual, no implementation in Base
+   virtual void getdata(){};   // implement in base
+
+//regular virtual, implement in Base, overriden in child
+class Animal
+{
+    public:
+        virtual void eat() { std::cout << "I'm eating generic food."; }
+};
+class Cat : public Animal
+{
+    public:
+        void eat() { std::cout << "I'm eating a rat."; }
+};
+
+// vector sort
+    vector<int> iV;
+    int k;
+    for (int j = 0; j < i; ++j)
+    {
+         cin >> k;
+         iV.push_back(k);
+    }
+    sort(iV.begin(), iV.end());
+    for (int l : iV) cout << l << " ";
+
+// vector erase
+    cin >> l;
+    iV.erase(iV.begin() + l - 1);
+    cin >> m >> n;
+    iV.erase(iV.begin() + m - 1, iV.begin() + n - 1);
+
+// vector lower bound, iA vector 
+    auto it=lower_bound(iA.begin(),iA.end(),x);
+        cout << (*it==x?"Yes ":"No ") << it-iA.begin()+1 << endl;
+
+// operator + overload
+Complex operator + (Complex c1, Complex c2)
+{
+    string s = to_string(c1.a + c2.a) + "i" + to_string(c1.b + c2.b);
+    Complex cSUM;
+    cSUM.input(s);
+    return cSUM;
+};
+
+// Smallest sub-array contains all elements
+   unordered_set<int> iSet(arr, arr + n);
+    for (auto i : iSet) cout << i << " ";
+    int sSize = iSet.size();
+    int minS = n;
+    int j = 0;
+    for (int i = sSize; i < n; ++i)
+    {
+        unordered_set<int> iSet1(arr + j, arr + i);
+        if (iSet1.size() < sSize) continue;
+        else
+        {
+            while (iSet1.size() == sSize)
+            {
+                if ((i - j) < minS) minS = i - j;
+                ++j;
+                iSet1.clear();
+                for (int k = j; k < i; ++k) iSet1.insert(arr[k]);
+            }
+        }
+    }
+    cout << "min array size " << minS << endl;
+
+// longest subarray with k distince elements
+   // Longest sub-array of 2 different elements, at least 2 elements
+    int maxS = 0;
+    k = 2;
+    j = 0;
+    for (int i = 2; i < n; ++i)
+    {
+        unordered_set<int> iSet2(arr + j, arr + i);
+        if (iSet2.size() <= k) 
+        {
+            if ((i - j) > maxS) maxS = i - j;
+            continue;
+        }
+        else
+        {
+            while (iSet2.size() > k)
+            {
+                ++j;
+                iSet2.clear();
+                for (int l = j; l < i; ++l) iSet2.insert(arr[j]);
+            }
+        }
+    }
+    cout << " max window with 2 different elements " << maxS << endl;
+}
+
+// # of socks
+   string sA[] = { "B", "B", "Y", "Y", "B", "B", "W", "W", "B" };
+    map<string, int> sMap;
+    for (auto s : sA)
+    {
+        sMap[s] = sMap[s] + 1;
+    }
+    int count = 0;
+    for (auto entry : sMap) count += entry.second / 2;
+    cout << "number of socks " << count << endl;
+
+// Reverse words, reverse string
+    string sA2[] = { "ABC", "DEF", "XYZ" };
+    string sLong("ABC DEF XYZ");
+    stringstream sts(sLong);
+    stack<string> ss;
+    while (!sts.eof())
+    {
+        string stemp;
+        sts >> stemp;
+
+        ss.push(stemp);
+        cout << stemp << endl;
+    }
+    
+    // for (auto s : sA2) ss.push(s);
+    string res;
+    while (!ss.empty())
+    {
+        string str = ss.top();
+        string rev = reverse(str);
+        res += rev + " ";
+        ss.pop();
+    }
+    cout << "Reverse word/string " << res << endl;
+   
+// reverse string
+string reverse(string s)
+{
+    string rs;
+    stack<char> cs;
+    for (char c : s) cs.push(c);
+    while (!cs.empty())
+    {
+        rs += cs.top();
+        cs.pop();
+    }
+    return rs;
+}
+
+// Lambda
+auto factorial = [](int i, int j) {return i * j;};
+int arr{1,2,3,4,5,6,7,8,9,10,11,12};
+long res = std::accumulate(arr, arr+12, 1, factorial);
+
+vector <accountant> emps {{“Josh”, 2100.0}, {“Kate”, 2900.0}, {“Rose”,1700.0}};
+const auto min_wage = 1600.0;
+const auto upper_limit = 1.5*min_wage;
+//report which accountant has a salary that is within a specific range
+std::find_if(emps.begin(), emps.end(),
+[=](const accountant& a) {return a.salary()>=min_wage && a.salary() < upper_limit;});
+
+ddddjjwwwwwrjjjkk
+string getCodedString2(string s)
+{
+    char prev = s[0];
+    stringstream output;
+    string subS;
+    for (char c : s)
+    {
+        if (c != prev)
+        {
+            if (subS.length() < 3) output << subS;
+            else
+                output << prev << '#' << subS.length();
+            prev = c;
+            subS = "";
+        }
+        subS.push_back(c);
+    }
+    if (subS.length() < 3) 
+        output << subS;
+    else
+        output << prev << "#" << subS.length();
+        
+    return output.str();
+}
+
+tring getCodedString3(string s)
+{
+   
+    vector<charCount> charCountV;
+    stringstream output;
+    char prev = s[0];
+    int count = 0;
+    for (char c : s)
+    {
+        if (c != prev)
+        {
+            charCount cc{ prev, count };
+            charCountV.push_back(cc);
+            count = 1;
+            prev = c;
+        }
+        else
+            ++count;
+    }
+    charCount cc{ prev, count };
+    charCountV.push_back(cc);
+
+    for (auto e : charCountV)
+    {
+        if (e.b < 3)
+            output << std::string(e.b, e.a);
+        else
+            output << e.a << "#" << e.b;
+    }
+    return output.str();
+}
+
+// Best solution
+string getCodedString4(string s)
+{
+    string output;
+    int slen = s.length(), left = 0;
+    for (int i = 0; i < slen; ++i)
+    {
+        if (s[i] == s[i + 1] && (i + 1) < slen) continue;
+        int num = i + 1 - left;
+        output += (num < 3) ? string(num, s[i]) : string(1, s[i]) + "#" + to_string(num);
+        left = i+1;           
+    }
+    return output;
+}
+
+int minimumSwaps(vector<int> arr) {
+    int count = 0;
+    int arrLen = sizeof(arr) / sizeof(int);
+    for(int i=0; i < arr.size(); i++){
+        while(arr[i] != i+1) {
+            int temp = arr[i];
+            arr[i] = arr[temp-1];
+            arr[temp-1] = temp;  
+            count ++;
+        }
+    }
+    return count;
+}
+
+// Complete the makeAnagram function below.
+int makeAnagram(string a, string b) {
+    unordered_map<char, int> m1, m2;
+    unordered_set<char> s;
+    int count = 0;
+    for (char c : a) 
+    {
+        m1[c] = m1[c] + 1;
+        s.insert(c);
+    }
+    for (char c : b)
+    {
+        m2[c] = m2[c] + 1; 
+        s.insert(c);
+    }
+    for(char c : s)
+    {
+        if (m1[c] == 0 && m2[c] != 0) count+= m2[c];
+        if (m2[c] == 0 && m1[c] != 0) count+= m1[c];
+        if (m1[c] != 0 && m2[c] != 0) count+= abs((m1[c] - m2[c]));
+    }
+    return count;
+}
+
+// Complete the isValid function below.
+string isValid(string s) {
+    unordered_map<char, int> m;
+    int least = 10000, most = 0, sum = 0;
+    
+    for (char c : s) m[c] = m[c] + 1;
+    for (auto e : m)
+    {
+        if (least > e.second) least = e.second;
+        if (most < e.second) most = e.second;
+        sum += e.second;
+    }
+    bool isValid = false;
+    if (least == 1 && (sum - 1 == most * (m.size() - 1)))
+        isValid = true;
+    else
+        isValid = sum - least * m.size() <= 1;
+        
+    return (isValid ? "YES" : "NO");
+
+}
+
+// Complete the alternatingCharacters function below.
+int alternatingCharacters(string s) {
+    int count = 0;
+    for (int i = 0; i < (s.size() - 1); ++i)
+       count += (s[i] == s[i+1]);
+    return count;
+}
+
+
+regex str_expr(firstC+"*");
+                    if ( l % 2 == 0)
+                    {
+                        count += regex_match (subS,str_expr);
+                        continue;
+                    }
+// Complete the substrCount function below.
+long substrCount(int n, string s) {
+    long count = 0;
+    int len = s.length();
+            for(int i = 0; i < n; i++)
+            {
+                string sub = s.substr(i);
+                int subLen = len - i; // sub.length();
+                string firstC = sub.substr(0,1);
+                for(int j = 0; j < subLen; j++)
+                {
+                    bool next = false;
+                    string subS = sub.substr(0, subLen - j);
+                    // cout << "sub string " << subS << endl;
+                    int l = subLen - j; 
+                    
+                    if (l == 1)
+                    {
+                        ++count;
+                        continue;
+                    }
+                    regex str_expr(firstC+"*");
+                    if ( l % 2 == 0)
+                    {
+                        count += regex_match (subS,str_expr);
+                        // cout << "Even match " << regex_match (subS,str_expr) << endl;
+                        continue;
+                    }
+                    int half = l / 2;
+                    // string regexS = firstC + "{" + to_string(half) + "}";
+                    // regex str_expr2(regexS + "?" + regexS);
+                    // cout << "Odd regular ex " << regexS + "?" + regexS << endl;
+                    // cout << subS << endl;
+                    if ( l % 2 == 1)
+                    {
+                        bool half1 = regex_match (subS.substr(0, l/2),str_expr);
+                        bool half2 = regex_match (subS.substr(l/2 + 1),str_expr);
+                        count += half1 && half2;
+                        // cout << "ODD match " << regex_match (subS,str_expr) << endl;
+                        continue;
+                    }
+                    // cout << " " << l << " " << l1 << endl;
+                    /*
+                    if (l >= 2 && s[i] != s[i+l-1]) continue;
+                    
+                    long charV = s[i];
+                    long sum = charV * (l / 2);
+                    if (s[i] != s[i+(l/2)-1]) continue;
+                    long sum1 = std::accumulate(&(s[i]), &(s[i]) + l/2, 0);
+                    // cout << "SUM1  " << sum1 << "SUM " << sum << endl;
+                    if (sum != sum1) continue;
+                    int start = (l % 2 == 0 ? l/2 : l/2 +1);
+                    if (s[i+start] != s[i+l-1]) continue;
+                    long sum2 = std::accumulate(&(s[i]) + start, &(s[i]) + l, 0);
+
+                   //  cout << "Sum " << sum1 << " " << sum2 << endl;
+                    if (sum1 == sum2)
+                    {
+                        // cout << subS << endl;
+                         ++count;
+                    }
+                    
+                    for(int i = 0; i < l/2; ++i)
+                    {
+                        if (subS[0] != subS[i])
+                        {
+                            next = true;
+                            break;
+                        }
+                    }
+                    if (next) continue;
+                    int start = (l % 2 == 0 ? l/2 : l/2 +1);
+                    for(int i = start; i < l; ++i)
+                    {
+                        if (subS[0] != subS[i]) {
+                            next = true;
+                            break;
+                        }  
+                    }
+                    if (next) continue;
+                    ++count; */
+                }
+            }
+    return count
+}
+long substrCount(int length, string s) {
+    long counter = 0;
+    for (int i = 0; i < length; i++) {
+        // if the current symbol is in the middle of palindrome, e.g. aba
+        int offset = 1;
+        while (i - offset >= 0 && i + offset < length && s[i - offset] == s[i - 1]
+                && s[i + offset] == s[i - 1]) {
+            counter++;
+            offset++;
+        }
+        // if this is repeatable characters aa
+        int repeats = 0;
+        while (i + 1 < length && s[i] == s[i + 1]) {
+            repeats++;
+            i++;
+        }
+        counter += repeats * (repeats + 1) / 2;
+    }
+    return counter + length;
+}
+
+// Complete the substrCount function below.
+long substrCount(int length, string s) {
+    long counter = 0;
+    int count1 = 0, count2 = 0, left = 0;
+    char c1 = '\0', c2 = '\0';
+    bool pallin = false;
+    for (int i = 0; i < length; ++i)  {
+        if (s[i] == s[i + 1] && (i + 1) < length) continue;
+        int num = i + 1 - left;    
+        counter += num * (num + 1) / 2;
+        if (pallin && s[i] == c1) counter += min(num, count1);
+        pallin = num == 1 && i > 0;
+        c1 = c2;
+        c2 = s[i];
+        count1 = count2;
+        count2 = num;
+        left = i+1;
+    }
+    return counter;
+}
+
+long substrCount(int length, string s) {
+    int counter = 0;
+    vector<int> iV = {0, 0, 0}; // store indices where chars changes, initialized 3 zeros
+    bool pallin = false;                                   // check for ..AABAA.. pattern
+    for (int i = 0; i < length; ++i)  {
+        if (s[i] == s[i + 1] && (i + 1) < length) continue; // keep loop until new char
+        int top = iV.size() - 1;    // last entry in iV store last char index
+        int num = i + 1 - iV.at(top);  // number of chars, e.g. AAA is 3 
+        counter += num * (num + 1) / 2; // number of substrings = 6 when num = 3
+        int count1 = iV.at(top - 1) - iV.at(top - 2); // for AAAABAAA, count1 = 4
+        if (pallin && s[i] == s[iV.at(top - 2)]) counter += min(num, count1); // 3 
+        pallin = num == 1 && i > 0;         // true for 1 char, false otherwise
+        iV.push_back(i+1);                  // remember last index
+    }
+    return counter;
+}
+
+void allPossibleSubset(int arr[], int n)
+{
+    int  count = pow(2, n);
+    // The outer for loop will run 2^n times to print all subset .
+    // Here variable i will act as a binary counter
+    for (int i = 0; i < count; i++)
+    {
+        // The inner for loop will run n times , As the maximum number of elements a set can have is n
+        // This loop will generate a subset
+        for (int j = 0; j < n; j++)
+        {
+            // This if condition will check if jth bit in binary representation of  i  is set or not
+            // if the value of (i & (1 << j)) is greater than 0 , include arr[j] in the current subset
+            // otherwise exclude arr[j]
+            if ((i & (1 << j)) > 0)
+                cout << arr[j] << " " << j << " " << (1 << j) << " " << i;
+        }
+        cout << "\n";
+    }
+}
+
+void allPossibleSubset2(int arr[], int n)
+{
+    static vector<vector<int>> iVV;
+    int iVVs = iVV.size();
+    for (int i = 0; i < iVVs; ++i)
+    {
+        vector<int> temp(iVV.at(i));
+        temp.push_back(arr[n - 1]);
+        iVV.push_back(temp);
+    }
+    iVV.push_back(vector<int>{arr[n - 1]});
+    if (n > 1) allPossibleSubset2(arr, n - 1);
+    else
+    {
+        for (vector<int> iV : iVV)
+        {
+            for (int i : iV)
+                cout << i << " ";
+            cout << endl;
+        }
+        return;
+    }
+}
+
+int fibo(int n) {
+ if ( n == 0)
+  return 0;
+else if (n ==1)
+   return 1;
+ else
+   return fibo(n-1) + fibo(n-2);
+}
+
+void mostPopulousChar(string s)
+{
+    map<char, int> x;
+    for (char c : s) ++x[c];
+    std::map<char, int>::iterator best = 
+    std::max_element(x.begin(), x.end(), [](const std::pair<char, int>& a, const std::pair<char, int>& b)->bool { return a.second < b.second; });
+    std::cout << best->first << " , " << best->second << "\n";
+
+    int charCount[128] = { 0 }; // ascii chars
+    for (char c : s) ++charCount[c];
+    int *maxP = max_element(charCount, charCount + 128);
+    cout << (char)(maxP - charCount) << " " <<  *maxP << endl;
+    // distance(A, max_element(A, A + N))
+}
+
+void allPossibleSubset(int arr[], int n)
+{
+    int  count = pow(2, n);
+    // The outer for loop will run 2^n times to print all subset .
+    // Here variable i will act as a binary counter
+    for (int i = 0; i < count; i++)
+    {
+        // The inner for loop will run n times , As the maximum number of elements a set can have is n
+        // This loop will generate a subset
+        for (int j = 0; j < n; j++)
+        {
+            // This if condition will check if jth bit in binary representation of  i  is set or not
+            // if the value of (i & (1 << j)) is greater than 0 , include arr[j] in the current subset
+            // otherwise exclude arr[j]
+            if ((i & (1 << j)) > 0)
+                cout << arr[j] << " " << j << " " << (1 << j) << " " << i;
+        }
+        cout << "\n";
+    }
+}
+
+void allPossibleSubset2(int arr[], int n)
+{
+    static vector<vector<int>> iVV;
+    int iVVs = iVV.size();
+    for (int i = 0; i < iVVs; ++i)
+    {
+        vector<int> temp(iVV.at(i));
+        temp.push_back(arr[n - 1]);
+        iVV.push_back(temp);
+    }
+    iVV.push_back(vector<int>{arr[n - 1]});
+    if (n > 1) allPossibleSubset2(arr, n - 1);
+    else
+    {
+        for (vector<int> iV : iVV)
+        {
+            for (int i : iV)
+                cout << i << " ";
+            cout << endl;
+        }
+        return;
+    }
+}
+
+void allPossibleSubset3(int arr[], int n)
+{
+    vector<vector<int>> iVV;
+    for (int j = 0; j < n; ++j)
+    {
+        int iVVs = iVV.size();
+        for (int i = 0; i < iVVs; ++i)
+        {
+            vector<int> temp(iVV.at(i));
+            temp.push_back(arr[j]);
+            iVV.push_back(temp);
+        }
+        iVV.push_back(vector<int>{arr[j]});
+    }
+}
+
+// linked list swap node data
+void my_swap(node* node_1, node* node_2)
+{
+    int temp = node_1->data;
+    node_1->data = node_2->data;
+    node_2->data = temp;
+}
+
+// linked list sort  bubble, could be merged sort with 2 pointers
+void bubble_sort2(node* head)
+{
+    int swapped;
+
+    node* lPtr; // left pointer will always point to the start of the list
+    node* rPrt = NULL; // right pointer will always point to the end of the list
+    do
+    {
+        swapped = 0;
+        lPtr = head;
+        while (lPtr->next != rPrt)
+        {
+            if (lPtr->data > lPtr->next->data)
+            {
+                my_swap(lPtr, lPtr->next);
+                swapped = 1;
+            }
+            lPtr = lPtr->next;
+        }
+        //as the largest element is at the end of the list, assign that to rPtr as there is no need to
+        //check already sorted list
+        rPrt = lPtr;
+
+    } while (swapped);
+}
+
+// linked list sort, 
+void recursive_sort(node* head)
+{
+    node* lPtr = head; // left pointer will always point to the start of the list
+    if (lPtr->next == NULL) return;
+    while (lPtr->next)
+    {
+        if (head->data > lPtr->next->data) swap(head->data, lPtr->next->data);
+        lPtr = lPtr->next;           
+    }    
+    recursive_sort(head->next);
+}
+
+// Complete the activityNotifications function below.
+int activityNotifications(vector<int> expenditure, int d) {
+   int vS = expenditure.size();
+    std::vector<int>::iterator it;
+    int count = 0;
+    vector<int> subV(expenditure.begin(), expenditure.begin() + d);
+    std::sort(subV.begin(), subV.end());
+
+    for (int i = 0; i < vS - d; ++i)
+    {
+        float medium = subV[d / 2];
+        if (d % 2 == 0)
+        {
+            medium += subV[d / 2 - 1];
+            medium /= 2;
+        }
+        if (expenditure[i + d] >= (2 * medium)) ++count;
+               
+        it = lower_bound(subV.begin(), subV.end(), expenditure[i]);
+        subV.erase(it, it + 1);
+        if (expenditure[i + d] >= subV[d-2])
+            subV.push_back(expenditure[i + d]);
+        else
+        {
+            it = lower_bound(subV.begin(), subV.end(), expenditure[i + d]);
+            subV.insert(it, expenditure[i + d]);
+        }
+    } 
+    return count;
+}
+
+// Complete the getMinimumCost function below.
+int getMinimumCost(int k, vector<int> c) {
+        sort(c.begin(), c.end(), greater<int>());
+        int total = 0, end = 0, added = 1;
+        for (int i = 0; i < c.size(); i = i + k)
+        {
+            end = ((c.size() - i) / k > 0) ? (i+k) : c.size();
+            total += added++ * accumulate(c.begin() +i , c.begin() + end, 0);
+        }
+        return total;
+}
+
+// Complete the luckBalance function below.
+int luckBalance(int k, vector<vector<int>> contests) {
+            vector<int> importantContest;
+            int totalBalance = 0;
+            for(int i = 0; i < contests.size(); ++i)
+            {
+                totalBalance += contests[i][0];
+                if (contests[i][1] == 1) importantContest.push_back(contests[i][0]);
+            }
+            sort(importantContest.begin(), importantContest.end());
+            if (k >= importantContest.size()) return totalBalance;
+            int num = importantContest.size() - k;
+            int partialsum = 
+                accumulate(importantContest.begin(), importantContest.begin() + num, 0);
+            return (totalBalance - 2 * partialsum);
+}
+
+// Complete the minimumAbsoluteDifference function below.
+int minimumAbsoluteDifference(vector<int> arr) {
+
+    sort(arr.begin(), arr.end());
+    int amin = arr[arr.size() - 1];
+    for (int i = arr.size() - 1; i > 0; --i)
+    {
+        int diff = abs(arr[i] - arr[i-1]);
+        if ( diff < amin ) amin = diff; 
+    }
+    return amin;
+}
+
+// Complete the maxMin function below.
+int maxMin(int k, vector<int> arr) {
+    sort(arr.begin(), arr.end());
+    int diff = arr[k-1] - arr[0];
+    for (int i = 1; i < arr.size() - k + 1; ++i )            
+        if (arr[k+i-1] - arr[i] < diff) diff = arr[k+i-1] - arr[i];
+    
+    return diff;
+}
+
+char find1stNonRepeatChar(string s)
+{
+    vector<char> cV;
+    vector<bool> bV;
+    int firstIdx = 0;
+    for (char c : s)
+    {
+        vector<char>::iterator ctr = find(cV.begin(), cV.end(), c);
+        if (ctr == cV.end())
+        {
+            cV.push_back(c);
+            bV.push_back(false);
+            if (find(bV.begin(), bV.end(), false) == bV.end()) firstIdx = cV.size() - 1;
+        }
+        else
+        {    
+            int idx = distance(cV.begin(), ctr);
+            bV[idx] = true;
+            if (idx == firstIdx)
+            {
+                for (int i = idx; i < cV.size(); ++i)
+                {
+                    if (bV[i] == false)
+                    {
+                        firstIdx = i;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return cV[firstIdx];
+}
+
+long long getLargest(vector<int> arr)
+{
+    // Sort the numbers using library sort function.
+    // Use Lambda for customized comparator 
+    sort(arr.begin(), arr.end(), [](int const& X, int const& Y) {
+        return (to_string(X) + to_string(Y)) > (to_string(Y) + to_string(X));
+    });
+    stringstream ss;    
+    for (int i : arr) ss << i;
+    return stoll(ss.str()); 
+}
+
+// circular link list
+void makeListCircular(node* head)
+{
+    node* lPtr = head; // left pointer will always point to the start of the list
+    while (lPtr->next) lPtr = lPtr->next;
+    lPtr->next = head;    
+}
+
+bool isListCircular(node* head)
+{
+    node* lPtr = head; // left pointer will always point to the start of the list
+    while (lPtr->next)
+    {
+        if (lPtr->next == head) return true;
+        lPtr = lPtr->next;
+    }
+    return false;
+}
+
+bool isListCircular2(node* nodeP)
+{
+    unordered_set<node*> nodeS = { nodeP };
+    while (nodeP->next)
+    {
+        if (!(nodeS.insert(nodeP->next)).second) return true;
+        nodeP = nodeP->next;
+    }
+    return false;
+}
+
+bool isListCircular3(node* list)
+{
+    node* slow_p = list, * fast_p = list;
+
+    while (slow_p && fast_p && fast_p->next) {
+        slow_p = slow_p->next;
+        fast_p = fast_p->next->next;
+        if (slow_p == fast_p) {
+            cout << "Found Loop";
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int minFlipToMakeStringAlternate(string s)
+{
+    int ss = s.size();
+    int evenS = 0, oddS = 0;
+    for (int i = 0; i < ss; i = i + 2)
+    {
+        evenS += s[i] - '0';
+        if (!((ss % 2 == 1) && i == (ss - 1)))
+            oddS += s[i + 1] - '0';
+    }
+    int flips1 = evenS + (ss / 2 - oddS); // even element is 0, odd is 1, 010
+    int flips2 = oddS + ((ss+1) / 2 - evenS);
+
+    // cout << "even " << evenS << " Odd " << oddS << endl;
+    return min(flips1, flips2);
+}
+
+// Complete the checkMagazine function below.
+void checkMagazine(vector<string> magazine, vector<string> note) {
+    map<string, int> magazineM, noteM;
+    for(auto s : magazine) ++magazineM[s];
+    for(auto s : note) ++noteM[s];
+    for(auto entry : noteM)
+        if (magazineM[entry.first] < entry.second)
+        {
+             cout << "No" << endl;
+            return;
+        }
+    cout << "Yes" << endl;
+}
+
+// Complete the sherlockAndAnagrams function below.
+int sherlockAndAnagrams(string s) {
+    map<string, int> sMap;
+    int answer = 0;
+    for(int i = 0; i < s.size(); ++i)
+        for(int j = 1; j <= s.size() -i; ++j)
+        {
+            string subS = s.substr(i,j);
+            sort(subS.begin(), subS.end());
+            ++sMap[subS];
+        }
+    for (auto entry : sMap)
+        answer += (entry.second * (entry.second - 1)) / 2;
+    return answer;    
+}
+
+// Complete the twoStrings function below.
+string twoStrings(string s1, string s2) {
+    unordered_set<char> stringS;
+    for (char c1 : s1)
+        stringS.insert(c1);
+        for (char c2 : s2)
+            if (stringS.find(c2) != stringS.end()) return "YES";
+    return "NO";
+}
+
+// Complete the countTriplets function below.
+long countTriplets(vector<long> arr, long r) {
+    long count = 0;
+    map<long, long> m1;
+    map<long, long> m2;
+    for (const auto &e : arr) {
+        count += m2[e];
+        cout << m2[e] << endl;
+        m2[e * r] += m1[e];        
+        ++m1[e * r];
+    }
+    return count;
+}
+
+// factorial
+int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; 
+    int f = accumulate(arr, arr + 10, 1, [](int i, int j) 
+    { 
+        return i * j; 
+    }); 
+
+// BNP interview
+void printListReverse(node* head)
+{
+    node* lPtr = head; // left pointer will always point to the start of the list
+    node* pPtr = NULL; // previous pointer
+    while (lPtr->next)
+    {
+        pPtr = lPtr;  // remember previous
+        lPtr = lPtr->next;
+    }
+    cout << lPtr->data << " ";
+    if (pPtr == NULL) return;
+    pPtr->next = NULL;
+    printListReverse(head);
+}
+
+
+// BNY interview question
+// find duplicate in int array
+// number of all substrings that are palindrome
+// Given Array of strings of words and sentence, anargram strings, number of  different sentences form by anagram strings
+// Given Array of integers, number of possible subsets that satisfy criteria  nCm, m between m, m+1, ...n

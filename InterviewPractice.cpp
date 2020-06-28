@@ -153,6 +153,23 @@ void printList(node* tnode)
     }
 }
 
+// Printing List in Reverse.
+void printListReverse(node* head)
+{
+    node* lPtr = head; // left pointer will always point to the start of the list
+    node* pPtr = NULL; // previous pointer
+    while (lPtr->next)
+    {
+        pPtr = lPtr;  // remember previous
+        lPtr = lPtr->next;
+    }
+    cout << lPtr->data << " ";
+    if (pPtr == NULL) return;
+    pPtr->next = NULL;
+    printListReverse(head);
+}
+
+
 // Push function for inserting nodes in the list.
 void push(node** thead, int new_data)
 {
@@ -971,6 +988,11 @@ int main()
     recursive_sort(MyList);
     cout << "Sorted Linked List: ";
     printList(MyList);
+    cout << endl;
+    cout << " print linklist in Reverse " << endl;
+    printListReverse(MyList);
+   // cout << " print linklist in Reverse 2 " << endl;
+   //  printReverse(MyList);
     cout << endl;
     makeListCircular(MyList);
 
